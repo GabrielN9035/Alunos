@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Alunos: 'Alunos',
   Cursos: 'Cursos',
-  AlunosCursos: 'AlunosCursos'
+  AlunosCursos: 'AlunosCursos',
+  Funcionarios: 'Funcionarios'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "alunos" | "cursos" | "alunosCursos"
+    modelProps: "alunos" | "cursos" | "alunosCursos" | "funcionarios"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Funcionarios: {
+      payload: Prisma.$FuncionariosPayload<ExtArgs>
+      fields: Prisma.FuncionariosFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FuncionariosFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FuncionariosFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        findFirst: {
+          args: Prisma.FuncionariosFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FuncionariosFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        findMany: {
+          args: Prisma.FuncionariosFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>[]
+        }
+        create: {
+          args: Prisma.FuncionariosCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        createMany: {
+          args: Prisma.FuncionariosCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FuncionariosCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>[]
+        }
+        delete: {
+          args: Prisma.FuncionariosDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        update: {
+          args: Prisma.FuncionariosUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        deleteMany: {
+          args: Prisma.FuncionariosDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FuncionariosUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FuncionariosUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>[]
+        }
+        upsert: {
+          args: Prisma.FuncionariosUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FuncionariosPayload>
+        }
+        aggregate: {
+          args: Prisma.FuncionariosAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFuncionarios>
+        }
+        groupBy: {
+          args: Prisma.FuncionariosGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FuncionariosGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FuncionariosCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FuncionariosCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -701,6 +776,19 @@ export const AlunosCursosScalarFieldEnum = {
 export type AlunosCursosScalarFieldEnum = (typeof AlunosCursosScalarFieldEnum)[keyof typeof AlunosCursosScalarFieldEnum]
 
 
+export const FuncionariosScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  email: 'email',
+  senha: 'senha',
+  admin: 'admin',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
+} as const
+
+export type FuncionariosScalarFieldEnum = (typeof FuncionariosScalarFieldEnum)[keyof typeof FuncionariosScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -741,6 +829,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -848,6 +943,7 @@ export type GlobalOmitConfig = {
   alunos?: Prisma.AlunosOmit
   cursos?: Prisma.CursosOmit
   alunosCursos?: Prisma.AlunosCursosOmit
+  funcionarios?: Prisma.FuncionariosOmit
 }
 
 /* Types for Logging */
