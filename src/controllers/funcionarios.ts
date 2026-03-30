@@ -3,6 +3,7 @@ import { prisma } from "../../config/prisma";
 import {handleErrors} from "../helpers/handleErrors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { access } from "node:fs";
 
 export default {
     login: async (request: Request, response: Response) => {
@@ -11,17 +12,16 @@ export default {
             const employee = await prisma.funcionarios.findUnique({
                 where: {
                     email,
-                    senha: bcrypt.hashSync(senha, +process.env.BCRYPT_ROUNDS!),
                 },
             });
 
-            if (!employee) {
-                return response.status(401).json({ message: "Email e/ou senha inválidos" });
+            if (!employee || !bcrypt.compareSync(senha, employee.senha)) {
+                return response.status(404).json("Email e/ou senha inválidos" );
             }
 
-            const token = jwt.sign({ id: employee.id, admin: employee.admin }, process.env.JWT_SECRET!, {   expiresIn: "1h" });
+            const token = jwt.sign(employee, process.env.JWT_SECRET!, {   expiresIn: "1h" });
 
-            return response.status(200).json({ token });
+            return response.status(200).json({ access_token: token });
         }catch (e) {
             return handleErrors(e, response);
         }
